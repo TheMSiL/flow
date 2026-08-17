@@ -1,0 +1,246 @@
+@import './styles/tokens.css';
+@import '@xyflow/react/dist/base.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    border-color: rgb(var(--c-line));
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-bg text-ink font-sans antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
+    overscroll-behavior: none;
+  }
+
+  #root {
+    isolation: isolate;
+  }
+
+  /* Focus ring — visible only for keyboard users. */
+  :focus-visible {
+    outline: 2px solid rgb(var(--c-accent));
+    outline-offset: 2px;
+    border-radius: var(--r-xs);
+  }
+
+  ::selection {
+    background: rgb(var(--c-accent) / 0.28);
+  }
+
+  /* Scrollbars — thin and unobtrusive. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--c-line-strong)) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--c-line-strong));
+    border-radius: 8px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--c-ink-faint));
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: rgb(var(--c-ink-faint));
+  }
+
+  /* Remove the number spinners — they clash with the compact forms. */
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+@layer components {
+  .surface-card {
+    @apply rounded-lg border border-line bg-surface;
+  }
+
+  .hairline-b {
+    box-shadow: inset 0 -1px 0 0 rgb(var(--c-line));
+  }
+
+  .hairline-t {
+    box-shadow: inset 0 1px 0 0 rgb(var(--c-line));
+  }
+
+  /* Scrollable region that hides its scrollbar (tabs, chip rows). */
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .grid-fade {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * React Flow theming — the library ships light-mode defaults, so every
+ * surface it paints is re-pointed at our tokens.
+ * ------------------------------------------------------------------ */
+.react-flow {
+  --xy-background-color: transparent;
+  --xy-edge-stroke-default: rgb(var(--c-line-strong));
+  --xy-edge-stroke-selected-default: rgb(var(--c-accent));
+  --xy-connectionline-stroke-default: rgb(var(--c-accent));
+  --xy-attribution-background-color-default: transparent;
+}
+
+.react-flow__attribution {
+  display: none;
+}
+
+.react-flow__node {
+  font-family: inherit;
+  cursor: grab;
+}
+.react-flow__node.dragging {
+  cursor: grabbing;
+}
+
+.react-flow__handle {
+  width: 11px;
+  height: 11px;
+  border-radius: 9999px;
+  border: 2px solid rgb(var(--c-canvas));
+  background: rgb(var(--c-line-strong));
+  transition:
+    background-color var(--t-fast) var(--ease-out),
+    transform var(--t-fast) var(--ease-out),
+    box-shadow var(--t-fast) var(--ease-out);
+}
+
+.react-flow__handle:hover,
+.react-flow__handle.connectionindicator:hover {
+  background: rgb(var(--c-accent));
+  transform: scale(1.35);
+  box-shadow: 0 0 0 4px rgb(var(--c-accent) / 0.18);
+}
+
+.react-flow__handle-left {
+  left: -6px;
+}
+.react-flow__handle-right {
+  right: -6px;
+}
+
+.react-flow__handle.connecting {
+  background: rgb(var(--c-accent));
+}
+
+/* Valid / invalid drop feedback while dragging a connection. */
+.react-flow__handle.valid {
+  background: rgb(var(--c-success));
+  box-shadow: 0 0 0 4px rgb(var(--c-success) / 0.2);
+}
+
+.react-flow__edge-path {
+  transition: stroke var(--t-base) var(--ease-out);
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: rgb(var(--c-accent));
+}
+
+.react-flow__edge-text {
+  fill: rgb(var(--c-ink-muted));
+  font-size: 10px;
+}
+
+.react-flow__connectionline path {
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+  animation: dash-flow 500ms linear infinite;
+}
+
+.react-flow__selection {
+  background: rgb(var(--c-accent) / 0.06);
+  border: 1px solid rgb(var(--c-accent) / 0.5);
+  border-radius: var(--r-sm);
+}
+
+.react-flow__minimap {
+  background: transparent;
+}
+
+.react-flow__minimap-mask {
+  fill: var(--minimap-mask);
+}
+
+.react-flow__node-toolbar {
+  z-index: 20;
+}
+
+.react-flow__nodesselection-rect {
+  background: rgb(var(--c-accent) / 0.06);
+  border: 1px solid rgb(var(--c-accent) / 0.45);
+  border-radius: var(--r-sm);
+}
+
+.react-flow__pane.dragging {
+  cursor: grabbing;
+}
+
+/* Prevent text selection artefacts when lasso-selecting on the canvas. */
+.react-flow__pane {
+  cursor: default;
+}
+
+/* ------------------------------------------------------------------ *
+ * Reduced motion — execution animation is the loudest thing in the
+ * product, so it is fully neutralised rather than merely shortened.
+ * ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

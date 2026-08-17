@@ -1,0 +1,135 @@
+/* ------------------------------------------------------------------ *
+ * FLOW design tokens
+ * Single source of truth for colour, radius, elevation and motion.
+ * Colours are stored as raw `R G B` triples so Tailwind can apply
+ * arbitrary alpha via `rgb(var(--token) / <alpha-value>)`.
+ * ------------------------------------------------------------------ */
+
+:root {
+  /* ---- radius ---- */
+  --r-xs: 4px;
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-2xl: 22px;
+
+  /* ---- motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-fast: 120ms;
+  --t-base: 180ms;
+  --t-slow: 320ms;
+
+  /* ---- semantic status (shared across themes) ---- */
+  --c-success: 52 199 123;
+  --c-danger: 244 87 96;
+  --c-warning: 245 178 56;
+  --c-running: 56 189 248;
+  --c-idle: 125 133 146;
+
+  /* ---- node category accents ---- */
+  --c-cat-trigger: 167 139 250;
+  --c-cat-action: 56 189 248;
+  --c-cat-condition: 245 178 56;
+  --c-cat-ai: 244 114 182;
+  --c-cat-integration: 52 199 123;
+  --c-cat-utility: 148 163 184;
+}
+
+/* ================================ DARK =============================== */
+:root,
+[data-theme='dark'] {
+  --c-bg: 10 11 13;
+  --c-canvas: 13 15 18;
+  --c-surface: 18 20 24;
+  --c-surface-raised: 24 27 32;
+  --c-surface-sunken: 8 9 11;
+  --c-surface-overlay: 22 25 30;
+
+  --c-line: 39 43 50;
+  --c-line-strong: 56 62 71;
+
+  --c-ink: 232 235 239;
+  --c-ink-muted: 152 160 171;
+  --c-ink-faint: 106 114 126;
+
+  --c-accent: 199 245 61;
+  --c-accent-soft: 60 74 20;
+  --c-accent-ink: 12 16 5;
+
+  --canvas-dot: 44 49 57;
+  --scrim: 4 5 7;
+  --minimap-mask: rgb(4 5 7 / 0.55);
+
+  /* Chart categorical trio — validated for CVD separation and contrast
+     against the #121418 chart surface (scripts/validate_palette.js). */
+  --chart-1: #d9569b;
+  --chart-2: #22a0de;
+  --chart-3: #77a20c;
+  --chart-grid: rgb(39 43 50);
+  --chart-axis: rgb(106 114 126);
+  --chart-surface: rgb(18 20 24);
+
+  --sh-xs: 0 1px 2px rgb(0 0 0 / 0.4);
+  --sh-sm: 0 1px 3px rgb(0 0 0 / 0.45), 0 1px 2px rgb(0 0 0 / 0.3);
+  --sh-md: 0 4px 12px rgb(0 0 0 / 0.45);
+  --sh-lg: 0 12px 32px -8px rgb(0 0 0 / 0.65);
+  --sh-xl: 0 24px 64px -12px rgb(0 0 0 / 0.75);
+  --sh-node: 0 1px 2px rgb(0 0 0 / 0.5), 0 4px 14px -6px rgb(0 0 0 / 0.6);
+  --sh-node-hover: 0 2px 4px rgb(0 0 0 / 0.5), 0 10px 28px -8px rgb(0 0 0 / 0.7);
+}
+
+/* =============================== LIGHT =============================== */
+[data-theme='light'] {
+  --c-bg: 250 250 251;
+  --c-canvas: 245 246 248;
+  --c-surface: 255 255 255;
+  --c-surface-raised: 255 255 255;
+  --c-surface-sunken: 241 243 245;
+  --c-surface-overlay: 255 255 255;
+
+  --c-line: 226 229 234;
+  --c-line-strong: 203 208 216;
+
+  --c-ink: 18 21 26;
+  --c-ink-muted: 95 103 115;
+  --c-ink-faint: 138 146 158;
+
+  --c-accent: 106 158 6;
+  --c-accent-soft: 233 248 199;
+  --c-accent-ink: 255 255 255;
+
+  --canvas-dot: 208 213 221;
+  --scrim: 24 27 33;
+  --minimap-mask: rgb(150 156 166 / 0.22);
+
+  --c-success: 22 148 89;
+  --c-danger: 208 46 55;
+  --c-warning: 181 118 8;
+  --c-running: 14 138 199;
+  --c-idle: 130 138 150;
+
+  --c-cat-trigger: 124 82 240;
+  --c-cat-action: 14 138 199;
+  --c-cat-condition: 181 118 8;
+  --c-cat-ai: 208 62 140;
+  --c-cat-integration: 22 148 89;
+  --c-cat-utility: 100 116 139;
+
+  /* Re-stepped for the white chart surface, validated separately. */
+  --chart-1: #c0348a;
+  --chart-2: #0e7fc0;
+  --chart-3: #5f8a0a;
+  --chart-grid: rgb(226 229 234);
+  --chart-axis: rgb(138 146 158);
+  --chart-surface: rgb(255 255 255);
+
+  --sh-xs: 0 1px 2px rgb(16 24 40 / 0.05);
+  --sh-sm: 0 1px 3px rgb(16 24 40 / 0.1), 0 1px 2px rgb(16 24 40 / 0.06);
+  --sh-md: 0 4px 12px -2px rgb(16 24 40 / 0.1);
+  --sh-lg: 0 12px 32px -8px rgb(16 24 40 / 0.16);
+  --sh-xl: 0 24px 64px -12px rgb(16 24 40 / 0.2);
+  --sh-node: 0 1px 2px rgb(16 24 40 / 0.06), 0 4px 12px -4px rgb(16 24 40 / 0.12);
+  --sh-node-hover: 0 2px 4px rgb(16 24 40 / 0.08), 0 12px 28px -8px rgb(16 24 40 / 0.2);
+}
